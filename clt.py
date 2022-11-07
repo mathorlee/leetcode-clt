@@ -123,9 +123,6 @@ if __name__ == "__main__":
     parser.add_argument("-t", "--title", type=str, required=False, help='title of problem')
     parser.add_argument("-s", "--submit", action="store_true", help="submit problems")
 
-    # parser.add_argument("-fn", type=int, required=False, default=1, help='楼层')
-    # parser.add_argument("-w", "--wall-type", type=str, required=False, default="wall", help="墙类型, wall|ews")
-    # parser.add_argument("-ssc", "--see-space-contour", action="store_true", help="看空间轮廓")
     args = parser.parse_args()
     list_problems = args.list_problems
     status = args.status
