@@ -78,13 +78,12 @@ def do_submit(title: str):
     _pp(title)
 
     question_id, code, _ = questionData(title)
-    s0 = "\n".join(code.split("\n")[:2])
     with open("func.py", mode="r") as f:
         s = f.read()
         s1 = re.search(r"# begin(?P<result>[\s\S]*)# end", s, flags=re.MULTILINE).group("result")
 
     # WARNING: code generate only suited for python3!!!
-    code = f"{s0}\n{s1}"
+    code = f"{code}\n{s1}"
     _pp(f"code")
     print(code)
 
@@ -103,13 +102,16 @@ def do_submit(title: str):
     for i in range(10):
         _, output = common.request_get(f"https://leetcode.com/submissions/detail/{submission_id}/check/", headers={"cookie": COOKIE})
         assert _ == 200, f"check失败 {_} {output}"
-        if output["state"] == "PENDING":
-            print("pending, sleep 5 seconds")
+        if output["state"] in ("PENDING", "STARTED"):
+            print(output, "sleep 5 seconds")
             time.sleep(5)
         else:
             _pp(f"{submission_id} result")
             print(json.dumps(output, sort_keys=True, indent=4))
             print(output["state"], output["status_code"], output["status_msg"])
+            if output["status_msg"] == "Accepted":
+                _pp("commit message")
+                print(f"{title} ac, runtime_percentile: {output['runtime_percentile']}, memory_percentile: {output['memory_percentile']}")
             break
 
 
