@@ -110,6 +110,8 @@ def do_submit(title: str):
             print(json.dumps(output, sort_keys=True, indent=4))
             print(output["state"], output["status_code"], output["status_msg"])
             if output["status_msg"] == "Accepted":
+                _pp("add file")
+                print("cp func.py acs/{title}.py")
                 _pp("commit message")
                 print(f"{title} ac, runtime_percentile: {output['runtime_percentile']}, memory_percentile: {output['memory_percentile']}")
             break
