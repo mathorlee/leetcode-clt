@@ -1,21 +1,18 @@
 class SectionCut(object):
-    def calculate_cuts(self, courses: list[list[int]]) -> int:
+    def calculate_cuts(self, nums: list[int], indexDiff: int, valueDiff: int) -> bool:
         # begin
         from sortedcontainers import SortedList
-
-        courses.sort(key=lambda _: _[1])
         arr = SortedList()
-        total_cost = 0
-        for cost, ddl in courses:
-            if total_cost + cost <= ddl:
-                arr.add(cost)
-                total_cost += cost
-            elif arr and arr[-1] > cost:
-                total_cost = total_cost - arr[-1] + cost
-                arr.pop()
-                arr.add(cost)
-        return len(arr)
+        for i, num in enumerate(nums):
+            if i > indexDiff:
+                arr.remove(nums[i - indexDiff - 1])
+            a, b = arr.bisect_left(num - valueDiff), arr.bisect_right(num + valueDiff)
+            if a < b:
+                return True
+            arr.add(num)
+        return False
         # end
 
 f = SectionCut().calculate_cuts
-print(f([[100,200],[200,1300],[1000,1250],[2000,3200]]))
+print(f([1,2,3,1], 3, 0))
+print(f([1,5,9,1,5,9], 2, 3))
