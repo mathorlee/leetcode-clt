@@ -51,7 +51,8 @@ def get_problem_list(status: str):
     i = 0
     for _ in output["data"]["problemsetQuestionList"]["questions"]:
         if _["paidOnly"] is False:
-            print("%3d" % i, _["status"], _["difficulty"], _["titleSlug"])
+            # print("%3d" % i, _["status"], _["difficulty"], _["titleSlug"])
+            print("%3d" % i, _["titleSlug"])
             i += 1
 
 
