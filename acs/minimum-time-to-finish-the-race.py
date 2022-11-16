@@ -20,6 +20,11 @@ class SectionCut(object):
         import math
         from functools import lru_cache
 
+        d = {}
+        for a, b in tires:
+            d[b] = min(a, d.get(b, 10**5))
+        tires = [(a, b) for b, a in d.items()]
+
         # get min(x) when a * b**(x - 1) >= a + changeTime
         # x = ceil(log((a + changeTime) / a, b) + 1)
         MAX_X = max(math.ceil(math.log((a + changeTime) / a, b) + 1) for a, b in tires)
