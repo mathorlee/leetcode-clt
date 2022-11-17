@@ -28,22 +28,15 @@ class SectionCut(object):
 
         @lru_cache(maxsize=None)
         def dp(n) -> int:
-            if n == 0:
-                return 0
-            if n % 6 == 0:
-                return 1 + min(dp(n // 3), dp(n // 2))
-            if n % 3 == 0:
-                return min(1 + dp(n // 3), 2 + dp(n // 2))
-            if n % 2 == 0:
-                return 1 + min(dp(n // 2), dp(n - 1))
-            return 1 + dp(n - 1)
+            if n <= 1:
+                return n
+            return 1 + min(n % 2 + dp(n // 2), n % 3 + dp(n // 3))
 
         return dp(n)
         # end
 
 f = SectionCut().calculate_cuts
-# print(f([5,1,3], [9,4,2,3,4]))
-# print(f(10))
-# print(f(6))
-# print(f(19786))
+print(f(10))
+print(f(6))
+print(f(19786))
 print(f(84806671))
