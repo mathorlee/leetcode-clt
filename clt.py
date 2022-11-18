@@ -108,9 +108,18 @@ def do_submit(title: str):
             time.sleep(5)
         else:
             _pp(f"{submission_id} result")
+            state, status_code, status_msg = output["state"], output["status_code"], output["status_msg"]
+            if status_msg == "Wrong Answer":
+                input = output["input"]
+                with open("input.txt", "w") as f:
+                    f.write(input)
+                print(f"{status_msg}, input已写入input.txt")
+            for k, v in output.items():
+                if isinstance(v, str) and len(v) > 200:
+                    output[k] = f"{v[:200]}..."
             print(json.dumps(output, sort_keys=True, indent=4))
-            print(output["state"], output["status_code"], output["status_msg"])
-            if output["status_msg"] == "Accepted":
+            print(state, status_code, status_msg)
+            if status_msg == "Accepted":
                 _pp("add file")
                 print(f"cp func.py acs/{title}.py")
                 _pp("commit message")
