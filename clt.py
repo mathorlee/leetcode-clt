@@ -109,11 +109,16 @@ def do_submit(title: str):
         else:
             _pp(f"{submission_id} result")
             state, status_code, status_msg = output["state"], output["status_code"], output["status_msg"]
-            if status_msg == "Wrong Answer":
-                input = output["input"]
+
+            def _write_input_txt(s):
                 with open("input.txt", "w") as f:
-                    f.write(input)
+                    f.write(s)
                 print(f"{status_msg}, input已写入input.txt")
+            if status_msg == "Wrong Answer":
+                _write_input_txt(output["input"])
+            if status_msg == "Time Limit Exceeded":
+                _write_input_txt(output["last_testcase"])
+
             for k, v in output.items():
                 if isinstance(v, str) and len(v) > 200:
                     output[k] = f"{v[:200]}..."
