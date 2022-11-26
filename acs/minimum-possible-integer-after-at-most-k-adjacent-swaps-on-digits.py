@@ -28,13 +28,13 @@ class SectionCut(object):
 
         n = len(num)
         window = SortedList()  # sliding window of size k + 1, store (value, index) of num
-        indices = SortedList(range(n))  # remained indices
-        res = []
+        remains = SortedList(range(n))  # remained remains
+        pops = []  # popped indices
 
         while k > 0:
             # add to remain window size to k + 1
-            while len(window) < k + 1 and len(window) < len(indices):
-                _ = indices[len(window)]
+            while len(window) < k + 1 and len(window) < len(remains):
+                _ = remains[len(window)]
                 window.add((num[_], _))
 
             # empty window, break
@@ -43,16 +43,16 @@ class SectionCut(object):
 
             # pop minimum value
             index = window.pop(0)[1]
-            res.append(index)
-            k -= indices.bisect_left(index)
-            indices.remove(index)
+            k -= remains.bisect_left(index)
+            remains.remove(index)
+            pops.append(index)
 
             # remove to remain window size to k + 1
-            for _ in indices[k + 1: len(window)]:
+            for _ in remains[k + 1: len(window)]:
                 window.remove((num[_], _))
 
-        s0 = set(res)
-        return "".join(num[j] for j in res) + "".join(num[j] for j in range(n) if j not in s0)
+        s0 = set(pops)
+        return "".join(num[j] for j in pops) + "".join(num[j] for j in range(n) if j not in s0)
         # end
 
 def read_input():
