@@ -12,3 +12,7 @@ https://leetcode.com/problems/minimum-incompatibility/discuss/961672/Python-DFS-
 
 ## smallest-rotation-with-highest-score
 这个题用O(nlogn)AC了，但是有O(n)的解没看懂: https://leetcode.com/problems/smallest-rotation-with-highest-score/discuss/1982967/Python-with-explanation-in-comments
+
+
+## zuma-game
+TLE，最好的成绩pass (n-2)/n。感觉没有优化的空间了。心累
