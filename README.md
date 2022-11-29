@@ -16,3 +16,6 @@ https://leetcode.com/problems/minimum-incompatibility/discuss/961672/Python-DFS-
 
 ## zuma-game
 TLE，最好的成绩pass (n-2)/n。感觉没有优化的空间了。心累
+
+## maximum-segment-sum-after-removals
+为什么runtime_percentile只有5%?
