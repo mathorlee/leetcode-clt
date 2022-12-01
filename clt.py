@@ -159,3 +159,9 @@ if __name__ == "__main__":
             print(code)
             _pp("content")
             print(content)
+
+            arr = re.findall("(Input|Output): (?P<input>.*)", content, flags=re.MULTILINE)
+            for i in range(0, len(arr), 2):
+                i, o = arr[i][1], arr[i + 1][1]
+                i = i.replace(" = ", "=")
+                print(f"""print(f({i}))  # {o}""")
