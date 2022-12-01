@@ -126,7 +126,7 @@ def do_submit(title: str):
             print(state, status_code, status_msg)
             if status_msg == "Accepted":
                 _pp("add file")
-                print(f"cp func.py acs/{title}.py")
+                print(f"cp func.py ac/{title}.py")
                 _pp("commit message")
                 print(f"{title} ac, runtime_percentile: {output['runtime_percentile']}, memory_percentile: {output['memory_percentile']}")
             break
