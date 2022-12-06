@@ -47,14 +47,13 @@ def get_problem_list(status: str):
     _, output = common.request_post("https://leetcode.com/graphql", headers={"cookie": COOKIE}, payload=input)
     assert _ == 200, f"problemsetQuestionList失败 {_} {output}"
     total = output["data"]["problemsetQuestionList"]["total"]
-    print(f"一共{total}个problem")
     i = 0
     for _ in output["data"]["problemsetQuestionList"]["questions"]:
         if _["paidOnly"] is False:
             # print("%3d" % i, _["status"], _["difficulty"], _["titleSlug"])
             print("%3d" % i, _["titleSlug"])
             i += 1
-
+    print(f"total: {i}")
 
 def questionData(title: str) -> tuple[str, str, str]:
     input = {
