@@ -41,6 +41,20 @@ def k_array(s):
 class SectionCut(object):
     def minInsertions(self, nums: list[int], k: int) -> int:
         # begin
+        """
+        1: delete abs(nums[_]), 0: do not delete abs[nums[_]] from max_value
+        FSM(有限状态机) is a full binary tree
+        1
+            11
+                111
+                101
+            01
+                011
+                001
+        binary tree must satisfy:
+            1. child != father + "0"
+            2. each node at least one digit is "1"
+        """
         from sortedcontainers import SortedList
 
         max_value = sum(_ for _ in nums if _ > 0)
