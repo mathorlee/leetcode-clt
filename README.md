@@ -19,3 +19,6 @@ TLE，最好的成绩pass (n-2)/n。感觉没有优化的空间了。心累
 
 ## maximum-segment-sum-after-removals
 为什么runtime_percentile只有5%?
+
+## https://leetcode.com/problems/number-of-beautiful-partitions/solutions/2831908/2d-dp-o-n-k-caching-and-tabular-methods-easy-to-understand-python/
+我的解太慢了。。。
