@@ -94,41 +94,71 @@ class SectionCut(object):
 
     def calculate_cuts(self, s: str, k: int, minLength: int) -> int:
         # begin
-        from functools import lru_cache
-        import bisect
+        # from functools import lru_cache
+        # import bisect
 
-        primes = "2357"
-        is_prime = [_ in primes for _ in s]
-        if not is_prime[0] or is_prime[-1]:
-            return 0
+        # primes = "2357"
+        # is_prime = [_ in primes for _ in s]
+        # if not is_prime[0] or is_prime[-1]:
+        #     return 0
         
-        split_point = []
-        for i in range(1, len(s)):
-            if is_prime[i] and not is_prime[i - 1]:
-                split_point.append(i)
+        # split_point = []
+        # for i in range(1, len(s)):
+        #     if is_prime[i] and not is_prime[i - 1]:
+        #         split_point.append(i)
 
-        # TLE 68/73
-        @lru_cache(None)
-        def f(lo, k):
-            n = len(s) - lo
-            if n < k * minLength or not is_prime[lo]:
-                return 0
+        # # TLE 68/73
+        # @lru_cache(None)
+        # def f(lo, k):
+        #     n = len(s) - lo
+        #     if n < k * minLength or not is_prime[lo]:
+        #         return 0
 
-            if k == 1:
-                return 1
+        #     if k == 1:
+        #         return 1
 
-            res = 0
-            max_length = n - (k - 1) * minLength
-            a = bisect.bisect_left(split_point, lo + minLength)
-            b = bisect.bisect_left(split_point, lo + max_length)
-            for _ in range(a, min(b + 1, len(split_point))):
-                res += f(split_point[_], k - 1)
-            # for l in range(minLength, max_length + 1):
-            #     if not is_prime[lo + l - 1]:
-            #         res += f(lo + l, k - 1)
-            return res
+        #     res = 0
+        #     max_length = n - (k - 1) * minLength
+        #     a = bisect.bisect_left(split_point, lo + minLength)
+        #     b = bisect.bisect_left(split_point, lo + max_length)
+        #     for _ in range(a, min(b + 1, len(split_point))):
+        #         res += f(split_point[_], k - 1)
+        #     # for l in range(minLength, max_length + 1):
+        #     #     if not is_prime[lo + l - 1]:
+        #     #         res += f(lo + l, k - 1)
+        #     return res
+        # return f(0, k) % (10**9 + 7)
 
-        return f(0, k) % (10**9 + 7)
+        M = 10**9 + 7
+        minLength = max(minLength, 2)
+        primes = set("2357")
+        is_prime = lambda _: _ in primes
+
+        if not is_prime(s[0]) or is_prime(s[-1]) or k * minLength > len(s):
+            return 0
+
+        n = len(s)
+        cut_pos = set(i for i in range(n) if not is_prime(s[i]) and (i == n - 1 or is_prime(s[i + 1])))
+        is_cut_pos = lambda i: i in cut_pos
+
+        # dp
+        dp = [[0] * k for _ in range(n)]
+        for i in range(minLength - 1, n):
+            dp[i][0] = dp[i - 1][0]  # pre sum
+            if is_cut_pos(i):
+                dp[i][0] += 1
+
+        for j in range(1, k):
+            for i in range(1, n):
+                dp[i][j] = dp[i - 1][j]  # pre sum
+                if i >= minLength and is_cut_pos(i):
+                    dp[i][j] += dp[i - minLength][j - 1]
+
+        # for i, _ in enumerate(dp):
+        #     print(_)
+        #     if is_cut_pos(i):
+        #         print()
+        return (dp[n - 1][k - 1] - dp[n - 2][k - 1]) % M
         # end
 
 f = SectionCut().calculate_cuts
