@@ -20,7 +20,7 @@ print(f"language: {language}")
 
 def _pp(s: str):
     """pretty print"""
-    print("=" * 50 + s + "=" * 50)
+    print("=" * 10 + s + "=" * 10)
 
 
 def get_problem_list(status: str):
