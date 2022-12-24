@@ -124,10 +124,10 @@ def do_submit(title: str):
             print(json.dumps(output, sort_keys=True, indent=4))
             print(state, status_code, status_msg)
             if status_msg == "Accepted":
-                _pp("add file")
-                print(f"cp func.py ac/{title}.py")
                 _pp("commit message")
-                print(f"{title} ac, runtime_percentile: {output['runtime_percentile']}, memory_percentile: {output['memory_percentile']}")
+                _ = f"{title} ac, runtime_percentile: {output['runtime_percentile']}, memory_percentile: {output['memory_percentile']}"
+                _ = f'ci -am"{_}"'
+                print(f"cp func.py ac/{title}.py && add . && {_}")
             break
 
 
