@@ -100,11 +100,11 @@ class SectionCut(object):
         max_lengths = SortedList()  # [(substring length, begin index)]
         def add_range(lo, hi):
             ranges.add((lo, hi))
-            max_lengths.add((hi - lo, lo))
+            max_lengths.add(hi - lo)
 
         def del_range(lo, hi):
             ranges.remove((lo, hi))
-            max_lengths.remove((hi - lo, lo))
+            max_lengths.remove(hi - lo)
 
         n = len(s)
         pre = 0
@@ -141,7 +141,7 @@ class SectionCut(object):
                 if new_hi < hi:
                     add_range(new_hi, hi)
                 s1[i] = c
-            ret.append(max_lengths[-1][0])
+            ret.append(max_lengths[-1])
             # print("".join(s1), ret[-1], list(ranges))
         return ret
         # end
