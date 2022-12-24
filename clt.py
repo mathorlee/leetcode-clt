@@ -127,7 +127,7 @@ def do_submit(title: str):
                 _pp("commit message")
                 _ = f"{title} ac, runtime_percentile: {output['runtime_percentile']}, memory_percentile: {output['memory_percentile']}"
                 _ = f'ci -am"{_}"'
-                print(f"cp func.py ac/{title}.py && add . && {_}")
+                print(f"cp func.py ac/{title}.py && add . && {_} && push")
             break
 
 
