@@ -21,3 +21,8 @@ TLE，最好的成绩pass (n-2)/n。感觉没有优化的空间了。心累
 为什么runtime_percentile只有5%?
 
 
+## minimum-total-distance-traveled
+这些解太难理解了：https://leetcode.com/problems/minimum-total-distance-traveled/solutions/2786768/python-dp-o-n-m-log-n/
+https://leetcode.com/problems/minimum-total-distance-traveled/solutions/2783245/Python3-O(MN)-DP/
+迷茫
+
