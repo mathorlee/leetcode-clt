@@ -160,7 +160,19 @@ if __name__ == "__main__":
             print(content)
 
             arr = re.findall("(Input|Output): (?P<input>.*)", content, flags=re.MULTILINE)
+            test_cases = []
             for i in range(0, len(arr), 2):
                 i, o = arr[i][1], arr[i + 1][1]
                 i = i.replace(" = ", "=")
-                print(f"""print(f({i}))  # {o}""")
+                test_cases.append(f"""print(f({i}))  # {o}""")
+            for _ in test_cases:
+                print(_)
+
+            fp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "func.py")
+            arr = common.read_path(fp).split("\n")
+            print(len(arr))
+            for i in range(len(arr) - 1, -1, -1):
+                if arr[i].find("print(f(*input))") != -1:
+                    arr = arr[:i + 1] + test_cases
+                    common.write_content_to_path("\n".join(arr), fp)
+                    break
