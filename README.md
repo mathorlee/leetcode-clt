@@ -26,3 +26,27 @@ TLE，最好的成绩pass (n-2)/n。感觉没有优化的空间了。心累
 https://leetcode.com/problems/minimum-total-distance-traveled/solutions/2783245/Python3-O(MN)-DP/
 迷茫
 
+
+## minimum-total-cost-to-make-arrays-unequal
+有个更风骚的解法，代码更短，但不好理解
+```
+class Solution:
+    def minimumTotalCost(self, nums1: List[int], nums2: List[int]) -> int:
+        if max((Counter(nums1) + Counter(nums2)).values()) > len(nums1): return -1 
+        ans = 0
+        diff = []
+        cand = vote = 0 
+        for i, (x, y) in enumerate(zip(nums1, nums2)): 
+            if x == y: 
+                ans += i 
+                if x == cand or not vote: 
+                    cand = x 
+                    vote += 1
+                else: vote -= 1
+            else: diff.append(i)
+        for i in diff: 
+            if cand not in (nums1[i], nums2[i]) and vote: 
+                ans += i 
+                vote -= 1
+        return ans
+```
